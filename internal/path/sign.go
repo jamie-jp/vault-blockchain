@@ -93,7 +93,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"signature": hexutil.Encode(signature),
-			"address":   account.AddressStr,
+			"address":   account.PublicKeyStr,
 		},
 	}, nil
 }
