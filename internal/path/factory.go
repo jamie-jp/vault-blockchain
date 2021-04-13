@@ -24,7 +24,7 @@ import (
 // GetPaths return paths
 func GetPaths() []*framework.Path {
 	return []*framework.Path{
-		getPath(&createAccountPathConfig{}),
+		getPath(&createPathConfig{}),
 		getPath(&signPathConfig{}),
 	}
 }
