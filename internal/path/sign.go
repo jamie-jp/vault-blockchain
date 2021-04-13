@@ -35,7 +35,7 @@ type signPathConfig struct {
 }
 
 func (s *signPathConfig) getPattern() string {
-	return "accounts/" + framework.GenericNameRegex("name") + "/sign"
+	return fmt.Sprinft("keys/%s/sign", framework.GenericNameRegex("name"))
 }
 
 func (s *signPathConfig) getHelpSynopsis() string {
@@ -68,7 +68,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	}
 	account, err := s.readAccount(ctx, req, name)
 	if err != nil {
-		return nil, fmt.Errorf("error reading account, %v", err)
+		return nil, fmt.Errorf("error reading key, %v", err)
 	}
 	// get data to sign
 	dataToSign, err := dataWrapper.MustGetString("data")
