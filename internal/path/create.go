@@ -31,25 +31,25 @@ import (
 	"github.com/bsostech/vault-blockchain/pkg/utils"
 )
 
-type createAccountPathConfig struct {
+type createPathConfig struct {
 	basePathConfig
 }
 
-func (c *createAccountPathConfig) getPattern() string {
+func (c *createPathConfig) getPattern() string {
 	return "create"
 }
 
-func (c *createAccountPathConfig) getHelpSynopsis() string {
+func (c *createPathConfig) getHelpSynopsis() string {
 	return "Create a private key"
 }
 
-func (c *createAccountPathConfig) getCallbacks() map[logical.Operation]framework.OperationFunc {
+func (c *createPathConfig) getCallbacks() map[logical.Operation]framework.OperationFunc {
 	return map[logical.Operation]framework.OperationFunc{
-		logical.CreateOperation: c.createAccount,
+		logical.CreateOperation: c.create,
 	}
 }
 
-func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logical.Request, data *framework.FieldData) (*logical.Response, error) {
+func (c *createPathConfig) create(ctx context.Context, req *logical.Request, data *framework.FieldData) (*logical.Response, error) {
 	// create private key
 	privateKey, err := crypto.GenerateKey()
 	if err != nil {
@@ -66,9 +66,9 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	}
 	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
 	publicKeyString := hexutil.Encode(publicKeyBytes)[4:]
-	// store account info
-	account := model.NewAccount("", privateKeyString, publicKeyString)
-	entry, err := logical.StorageEntryJSON(fmt.Sprintf("keys/%s", account.PublicKeyStr), account)
+	// store key info
+	key := model.NewKey("", privateKeyString, publicKeyString)
+	entry, err := logical.StorageEntryJSON(fmt.Sprintf("keys/%s", key.PublicKeyStr), key)
 	if err != nil {
 		return nil, err
 	}
@@ -78,8 +78,8 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	}
 	return &logical.Response{
 		Data: map[string]interface{}{
-			"publicKey": account.PublicKeyStr,
-			"path": fmt.Sprintf("keys/%s", account.PublicKeyStr),
+			"publicKey": key.PublicKeyStr,
+			"path": fmt.Sprintf("keys/%s", key.PublicKeyStr),
 		},
 	}, nil
 }
