@@ -39,7 +39,7 @@ func newBackend(conf *logical.BackendConfig) (*cryptoBackend, error) {
 		),
 		PathsSpecial: &logical.Paths{
 			SealWrapStorage: []string{
-				"keys/",
+				"accounts/",
 			},
 		},
 		Secrets:     []*framework.Secret{},
