@@ -26,7 +26,7 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
-	"golang.org/x/crypto/sha3"
+	//"golang.org/x/crypto/sha3"
 
 	"github.com/bsostech/vault-blockchain/internal/model"
 	"github.com/bsostech/vault-blockchain/pkg/utils"
