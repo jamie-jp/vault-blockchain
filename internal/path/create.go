@@ -67,7 +67,7 @@ func (c *createPathConfig) create(ctx context.Context, req *logical.Request, dat
 	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
 	publicKeyString := hexutil.Encode(publicKeyBytes)[4:]
 	// store key info
-	key := model.NewKey("", privateKeyString, publicKeyString)
+	key := model.NewKey(privateKeyString, publicKeyString)
 	entry, err := logical.StorageEntryJSON(fmt.Sprintf("keys/%s", key.PublicKeyStr), key)
 	if err != nil {
 		return nil, err
