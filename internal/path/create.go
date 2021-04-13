@@ -36,7 +36,7 @@ type createPathConfig struct {
 }
 
 func (c *createPathConfig) getPattern() string {
-	return "create"
+	return "keys/create"
 }
 
 func (c *createPathConfig) getHelpSynopsis() string {
