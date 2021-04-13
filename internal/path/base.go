@@ -42,7 +42,7 @@ func (b basePathConfig) getExistenceFunc() framework.ExistenceFunc {
 }
 
 func (b *basePathConfig) readAccount(ctx context.Context, req *logical.Request, name string) (*model.Account, error) {
-	path := fmt.Sprintf("accounts/%s/address", name)
+	path := fmt.Sprintf("keys/%s", name)
 	entry, err := req.Storage.Get(ctx, path)
 	if err != nil {
 		return nil, err
@@ -53,7 +53,7 @@ func (b *basePathConfig) readAccount(ctx context.Context, req *logical.Request, 
 	var account *model.Account
 	err = entry.DecodeJSON(&account)
 	if err != nil {
-		return nil, fmt.Errorf("failed to deserialize account at %s", path)
+		return nil, fmt.Errorf("failed to deserialize key at %s", path)
 	}
 	if account == nil {
 		return nil, fmt.Errorf("account not existed at %s", path)
