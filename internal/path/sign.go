@@ -35,7 +35,7 @@ type signPathConfig struct {
 }
 
 func (s *signPathConfig) getPattern() string {
-	return fmt.Sprintf("keys/%s/sign", framework.GenericNameRegex("name"))
+	return fmt.Sprintf("accounts/%s/sign", framework.GenericNameRegex("name"))
 }
 
 func (s *signPathConfig) getHelpSynopsis() string {
