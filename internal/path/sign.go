@@ -75,7 +75,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	if err != nil {
 		return nil, err
 	}
-	dataBytes, err := hexutil.Decode(dataToSign)
+	dataBytes, err := hexutil.Decode("0x" + dataToSign)
 	if err != nil {
 		return nil, err
 	}
