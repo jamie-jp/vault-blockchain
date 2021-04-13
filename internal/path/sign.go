@@ -75,10 +75,10 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	if err != nil {
 		return nil, err
 	}
-	// dataBytes, err := hexutil.Decode(dataToSign)
-	// if err != nil {
-	//	return nil, err
-	// }
+	dataBytes, err := hexutil.Decode(dataToSign)
+	if err != nil {
+		return nil, err
+	}
 	// get private ecdsa key from account for signing data
 	privateKey, err := account.GetPrivateKeyECDSA()
 	if err != nil {
@@ -86,7 +86,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	}
 	defer utils.ZeroKey(privateKey)
 	// sign data
-	signature, err := crypto.Sign(dataToSign.Bytes(), privateKey)
+	signature, err := crypto.Sign(dataBytes.Bytes(), privateKey)
 	if err != nil {
 		return nil, err
 	}
