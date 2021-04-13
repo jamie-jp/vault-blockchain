@@ -86,7 +86,7 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	// address := hexutil.Encode(hash.Sum(nil)[12:])
 	// store account info
 	account := model.NewAccount("", privateKeyString, publicKeyString)
-	entry, err := logical.StorageEntryJSON("accounts/" + publicKeyString + "/address", account)
+	entry, err := logical.StorageEntryJSON("accounts/" + account.PublicKeyStr + "/address", account)
 	if err != nil {
 		return nil, err
 	}
@@ -97,6 +97,7 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"publicKey": account.PublicKeyStr,
+			"address": "accounts/" + account.PublicKeyStr + "/address"
 		},
 	}, nil
 }
