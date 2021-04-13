@@ -86,7 +86,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	}
 	defer utils.ZeroKey(privateKey)
 	// sign data
-	signature, err := crypto.Sign(dataBytes.Bytes(), privateKey)
+	signature, err := crypto.Sign(dataBytes, privateKey)
 	if err != nil {
 		return nil, err
 	}
