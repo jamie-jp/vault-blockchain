@@ -49,7 +49,7 @@ func (s *signPathConfig) getFields() map[string]*framework.FieldSchema {
 		},
 		"data": {
 			Type:        framework.TypeString,
-			Description: "The data to hash (keccak) and sign.",
+			Description: "The data as hash for sign.",
 		},
 	}
 }
@@ -75,11 +75,10 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	if err != nil {
 		return nil, err
 	}
-	dataBytes, err := hexutil.Decode(dataToSign)
-	if err != nil {
-		return nil, err
-	}
-	hash := crypto.Keccak256Hash(dataBytes)
+	// dataBytes, err := hexutil.Decode(dataToSign)
+	// if err != nil {
+	//	return nil, err
+	// }
 	// get private ecdsa key from account for signing data
 	privateKey, err := account.GetPrivateKeyECDSA()
 	if err != nil {
@@ -87,7 +86,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	}
 	defer utils.ZeroKey(privateKey)
 	// sign data
-	signature, err := crypto.Sign(hash.Bytes(), privateKey)
+	signature, err := crypto.Sign(dataToSign.Bytes(), privateKey)
 	if err != nil {
 		return nil, err
 	}
