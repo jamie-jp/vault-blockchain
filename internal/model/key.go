@@ -62,22 +62,3 @@ func (a *Key) GetPublicKeyECDSA() (*ecdsa.PublicKey, error) {
 	return publicKeyECDSA, nil
 }
 
-// GetPrivateKeyECIES key for encrypting data
-func (a *Key) GetPrivateKeyECIES() (*ecies.PrivateKey, error) {
-	privateKeyECDSA, err := a.GetPrivateKeyECDSA()
-	if err != nil {
-		return nil, err
-	}
-	privateKeyECIES := ecies.ImportECDSA(privateKeyECDSA)
-	return privateKeyECIES, nil
-}
-
-// GetPublicKeyECIES key for decrypting data
-func (a *Key) GetPublicKeyECIES() (*ecies.PublicKey, error) {
-	publicKeyECDSA, err := a.GetPublicKeyECDSA()
-	if err != nil {
-		return nil, err
-	}
-	publicKeyECIES := ecies.ImportECDSAPublic(publicKeyECDSA)
-	return publicKeyECIES, nil
-}
