@@ -66,7 +66,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	if err != nil {
 		return nil, err
 	}
-	account, err := s.readAccount(ctx, req, name)
+	key, err := s.readKey(ctx, req, name)
 	if err != nil {
 		return nil, fmt.Errorf("error reading key, %v", err)
 	}
@@ -79,8 +79,8 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	if err != nil {
 		return nil, err
 	}
-	// get private ecdsa key from account for signing data
-	privateKey, err := account.GetPrivateKeyECDSA()
+	// get private ecdsa key from key for signing data
+	privateKey, err := key.GetPrivateKeyECDSA()
 	if err != nil {
 		return nil, fmt.Errorf("error reconstructing private key, %v", err)
 	}
@@ -93,7 +93,7 @@ func (s *signPathConfig) sign(ctx context.Context, req *logical.Request, data *f
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"signature": hexutil.Encode(signature),
-			"address":   account.PublicKeyStr,
+			"address":   key.PublicKeyStr,
 		},
 	}, nil
 }
