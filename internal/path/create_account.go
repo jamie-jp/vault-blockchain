@@ -97,7 +97,7 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"publicKey": account.PublicKeyStr,
-			"address": "accounts/" + account.PublicKeyStr + "/address"
+			"address": fmt.Sprintf("accounts/%s/address", account.PublicKeyStr),
 		},
 	}, nil
 }
