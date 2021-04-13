@@ -30,8 +30,8 @@ type ethereumBackend struct {
 }
 
 // returns ethereumBackend
-func newBackend(conf *logical.BackendConfig) (*ethereumBackend, error) {
-	var b ethereumBackend
+func newBackend(conf *logical.BackendConfig) (*Backend, error) {
+	var b Backend
 	b.Backend = &framework.Backend{
 		Help: "",
 		Paths: framework.PathAppend(
@@ -39,7 +39,7 @@ func newBackend(conf *logical.BackendConfig) (*ethereumBackend, error) {
 		),
 		PathsSpecial: &logical.Paths{
 			SealWrapStorage: []string{
-				"accounts/",
+				"keys/",
 			},
 		},
 		Secrets:     []*framework.Secret{},
