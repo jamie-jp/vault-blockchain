@@ -25,13 +25,13 @@ import (
 )
 
 // backend for this plugin
-type Backend struct {
+type cryptoBackend struct {
 	*framework.Backend
 }
 
 // returns new Backend
-func newBackend(conf *logical.BackendConfig) (*Backend, error) {
-	var b Backend
+func newBackend(conf *logical.BackendConfig) (*cryptoBackend, error) {
+	var b cryptoBackend
 	b.Backend = &framework.Backend{
 		Help: "",
 		Paths: framework.PathAppend(
