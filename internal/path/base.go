@@ -42,7 +42,7 @@ func (b basePathConfig) getExistenceFunc() framework.ExistenceFunc {
 }
 
 func (b *basePathConfig) readKey(ctx context.Context, req *logical.Request, name string) (*model.Key, error) {
-	path := fmt.Sprintf("keys/%s", name)
+	path := fmt.Sprintf("accounts/%s", name)
 	entry, err := req.Storage.Get(ctx, path)
 	if err != nil {
 		return nil, err
