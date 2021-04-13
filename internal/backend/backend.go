@@ -29,7 +29,7 @@ type Backend struct {
 	*framework.Backend
 }
 
-// returns ethereumBackend
+// returns new Backend
 func newBackend(conf *logical.BackendConfig) (*Backend, error) {
 	var b Backend
 	b.Backend = &framework.Backend{
