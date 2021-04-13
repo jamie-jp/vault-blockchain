@@ -96,7 +96,7 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	}
 	return &logical.Response{
 		Data: map[string]interface{}{
-			"publicKey": publicKeyString,
+			"publicKey": account.PublicKeyStr,
 		},
 	}, nil
 }
