@@ -26,7 +26,6 @@ import (
 	"github.com/ethereum/go-ethereum/crypto"
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
-	//"golang.org/x/crypto/sha3"
 
 	"github.com/bsostech/vault-blockchain/internal/model"
 	"github.com/bsostech/vault-blockchain/pkg/utils"
@@ -37,21 +36,11 @@ type createAccountPathConfig struct {
 }
 
 func (c *createAccountPathConfig) getPattern() string {
-	name := framework.GenericNameRegex("name")
-	fmt.Println("name: ", name)
-	return "accounts/" + name + "/address"
+	return "create"
 }
 
 func (c *createAccountPathConfig) getHelpSynopsis() string {
-	return "Create an Ethereum account using a generated passphrase"
-}
-
-func (c *createAccountPathConfig) getFields() map[string]*framework.FieldSchema {
-	return map[string]*framework.FieldSchema{
-		"name": {
-			Type: framework.TypeString,
-		},
-	}
+	return "Create a private key"
 }
 
 func (c *createAccountPathConfig) getCallbacks() map[logical.Operation]framework.OperationFunc {
@@ -77,16 +66,9 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	}
 	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
 	publicKeyString := hexutil.Encode(publicKeyBytes)[4:]
-	// create address
-	// hash := sha3.NewLegacyKeccak256()
-	// _, err = hash.Write(publicKeyBytes[1:])
-	// if err != nil {
-	// 	return nil, err
-	// }
-	// address := hexutil.Encode(hash.Sum(nil)[12:])
 	// store account info
 	account := model.NewAccount("", privateKeyString, publicKeyString)
-	entry, err := logical.StorageEntryJSON("accounts/" + account.PublicKeyStr + "/address", account)
+	entry, err := logical.StorageEntryJSON(fmt.Sprintf("keys/%s", account.PublicKeyStr), account)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +79,7 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"publicKey": account.PublicKeyStr,
-			"address": fmt.Sprintf("accounts/%s/address", account.PublicKeyStr),
+			"path": fmt.Sprintf("keys/%s", account.PublicKeyStr),
 		},
 	}, nil
 }
