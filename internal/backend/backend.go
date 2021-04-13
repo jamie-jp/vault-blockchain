@@ -25,7 +25,7 @@ import (
 )
 
 // backend for this plugin
-type ethereumBackend struct {
+type Backend struct {
 	*framework.Backend
 }
 
