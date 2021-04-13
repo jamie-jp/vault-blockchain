@@ -25,11 +25,7 @@ import (
 func GetPaths() []*framework.Path {
 	return []*framework.Path{
 		getPath(&createAccountPathConfig{}),
-		getPath(&signTransactionPathConfig{}),
 		getPath(&signPathConfig{}),
-		getPath(&signBesuPrivateTransactionPathConfig{}),
-		getPath(&encryptPathConfig{}),
-		getPath(&decryptPathConfig{}),
 	}
 }
 
