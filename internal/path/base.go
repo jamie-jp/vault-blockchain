@@ -56,7 +56,7 @@ func (b *basePathConfig) readAccount(ctx context.Context, req *logical.Request, 
 		return nil, fmt.Errorf("failed to deserialize key at %s", path)
 	}
 	if account == nil {
-		return nil, fmt.Errorf("account not existed at %s", path)
+		return nil, fmt.Errorf("key not existed at %s", path)
 	}
 	return account, nil
 }
