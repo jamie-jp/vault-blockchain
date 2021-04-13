@@ -36,7 +36,7 @@ type createPathConfig struct {
 }
 
 func (c *createPathConfig) getPattern() string {
-	return "keys/create"
+	return "create"
 }
 
 func (c *createPathConfig) getHelpSynopsis() string {
@@ -68,7 +68,7 @@ func (c *createPathConfig) create(ctx context.Context, req *logical.Request, dat
 	publicKeyString := hexutil.Encode(publicKeyBytes)[4:]
 	// store key info
 	key := model.NewKey(privateKeyString, publicKeyString)
-	entry, err := logical.StorageEntryJSON(fmt.Sprintf("keys/%s", key.PublicKeyStr), key)
+	entry, err := logical.StorageEntryJSON(fmt.Sprintf("accounts/%s", key.PublicKeyStr), key)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *createPathConfig) create(ctx context.Context, req *logical.Request, dat
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"publicKey": key.PublicKeyStr,
-			"path": fmt.Sprintf("keys/%s", key.PublicKeyStr),
+			"path": fmt.Sprintf("accounts/%s", key.PublicKeyStr),
 		},
 	}, nil
 }
