@@ -78,14 +78,14 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	publicKeyBytes := crypto.FromECDSAPub(publicKeyECDSA)
 	publicKeyString := hexutil.Encode(publicKeyBytes)[4:]
 	// create address
-	hash := sha3.NewLegacyKeccak256()
-	_, err = hash.Write(publicKeyBytes[1:])
-	if err != nil {
-		return nil, err
-	}
-	address := hexutil.Encode(hash.Sum(nil)[12:])
+	// hash := sha3.NewLegacyKeccak256()
+	// _, err = hash.Write(publicKeyBytes[1:])
+	// if err != nil {
+	// 	return nil, err
+	// }
+	// address := hexutil.Encode(hash.Sum(nil)[12:])
 	// store account info
-	account := model.NewAccount(address, privateKeyString, publicKeyString)
+	account := model.NewAccount("", privateKeyString, publicKeyString)
 	entry, err := logical.StorageEntryJSON(req.Path, account)
 	if err != nil {
 		return nil, err
@@ -96,7 +96,7 @@ func (c *createAccountPathConfig) createAccount(ctx context.Context, req *logica
 	}
 	return &logical.Response{
 		Data: map[string]interface{}{
-			"address": account.AddressStr,
+			"publicKey": publicKeyString,
 		},
 	}, nil
 }
