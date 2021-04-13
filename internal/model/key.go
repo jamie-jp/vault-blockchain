@@ -27,30 +27,28 @@ import (
 	"github.com/bsostech/vault-blockchain/pkg/utils"
 )
 
-// Account is an Ethereum account
-type Account struct {
-	AddressStr    string `json:"address"` // Ethereum account address derived from the private key
+// Key
+type Key struct {
 	PrivateKeyStr string `json:"private_key"`
-	PublicKeyStr  string `json:"public_key"` // Ethereum public key derived from the private key
+	PublicKeyStr  string `json:"public_key"` // public key derived from the private key
 }
 
-// NewAccount returns Account
-func NewAccount(addressStr string, privateKeyStr string, publicKeyStr string) *Account {
-	return &Account{
-		AddressStr:    addressStr,
+// NewKey returns Key Json
+func NewKey(privateKeyStr string, publicKeyStr string) *Key {
+	return &Key{
 		PrivateKeyStr: privateKeyStr,
 		PublicKeyStr:  publicKeyStr,
 	}
 }
 
 // GetPrivateKeyECDSA key for signing data
-func (a *Account) GetPrivateKeyECDSA() (*ecdsa.PrivateKey, error) {
-	// Get private key from account
+func (a *Key) GetPrivateKeyECDSA() (*ecdsa.PrivateKey, error) {
+	// Get private key from key
 	return crypto.HexToECDSA(a.PrivateKeyStr)
 }
 
 // GetPublicKeyECDSA key for validating signature
-func (a *Account) GetPublicKeyECDSA() (*ecdsa.PublicKey, error) {
+func (a *Key) GetPublicKeyECDSA() (*ecdsa.PublicKey, error) {
 	privateKeyECDSA, err := a.GetPrivateKeyECDSA()
 	if err != nil {
 		return nil, err
@@ -65,7 +63,7 @@ func (a *Account) GetPublicKeyECDSA() (*ecdsa.PublicKey, error) {
 }
 
 // GetPrivateKeyECIES key for encrypting data
-func (a *Account) GetPrivateKeyECIES() (*ecies.PrivateKey, error) {
+func (a *Key) GetPrivateKeyECIES() (*ecies.PrivateKey, error) {
 	privateKeyECDSA, err := a.GetPrivateKeyECDSA()
 	if err != nil {
 		return nil, err
@@ -75,7 +73,7 @@ func (a *Account) GetPrivateKeyECIES() (*ecies.PrivateKey, error) {
 }
 
 // GetPublicKeyECIES key for decrypting data
-func (a *Account) GetPublicKeyECIES() (*ecies.PublicKey, error) {
+func (a *Key) GetPublicKeyECIES() (*ecies.PublicKey, error) {
 	publicKeyECDSA, err := a.GetPublicKeyECDSA()
 	if err != nil {
 		return nil, err
