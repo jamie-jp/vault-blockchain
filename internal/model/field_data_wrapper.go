@@ -23,7 +23,7 @@ import (
 
 	"github.com/hashicorp/vault/sdk/framework"
 
-	"github.com/bsostech/vault-blockchain/pkg/utils"
+	"github.com/intech/vault-blockchain/pkg/utils"
 )
 
 // FieldDataWrapper used to processing data from framework.FieldData

@@ -23,7 +23,7 @@ import (
 
 	"github.com/ethereum/go-ethereum/crypto"
 
-	"github.com/bsostech/vault-blockchain/pkg/utils"
+	"github.com/intech/vault-blockchain/pkg/utils"
 )
 
 // Key

@@ -27,8 +27,8 @@ import (
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
 
-	"github.com/bsostech/vault-blockchain/internal/model"
-	"github.com/bsostech/vault-blockchain/pkg/utils"
+	"github.com/intech/vault-blockchain/internal/model"
+	"github.com/intech/vault-blockchain/pkg/utils"
 )
 
 type createPathConfig struct {
@@ -68,7 +68,7 @@ func (c *createPathConfig) create(ctx context.Context, req *logical.Request, dat
 	publicKeyString := hexutil.Encode(publicKeyBytes)[4:]
 	// store key info
 	key := model.NewKey(privateKeyString, publicKeyString)
-	entry, err := logical.StorageEntryJSON(fmt.Sprintf("accounts/%s", key.PublicKeyStr), key)
+	entry, err := logical.StorageEntryJSON(fmt.Sprintf("keys/%s", key.PublicKeyStr), key)
 	if err != nil {
 		return nil, err
 	}
@@ -79,7 +79,7 @@ func (c *createPathConfig) create(ctx context.Context, req *logical.Request, dat
 	return &logical.Response{
 		Data: map[string]interface{}{
 			"publicKey": key.PublicKeyStr,
-			"path": fmt.Sprintf("accounts/%s", key.PublicKeyStr),
+			"path": fmt.Sprintf("keys/%s", key.PublicKeyStr),
 		},
 	}, nil
 }

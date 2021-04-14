@@ -26,8 +26,8 @@ import (
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
 
-	"github.com/bsostech/vault-blockchain/internal/model"
-	"github.com/bsostech/vault-blockchain/pkg/utils"
+	"github.com/intech/vault-blockchain/internal/model"
+	"github.com/intech/vault-blockchain/pkg/utils"
 )
 
 type signPathConfig struct {
@@ -35,7 +35,7 @@ type signPathConfig struct {
 }
 
 func (s *signPathConfig) getPattern() string {
-	return fmt.Sprintf("accounts/%s/sign", framework.GenericNameRegex("name"))
+	return fmt.Sprintf("keys/%s/sign", framework.GenericNameRegex("name"))
 }
 
 func (s *signPathConfig) getHelpSynopsis() string {

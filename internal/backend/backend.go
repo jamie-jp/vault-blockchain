@@ -21,7 +21,7 @@ import (
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
 
-	"github.com/bsostech/vault-blockchain/internal/path"
+	"github.com/intech/vault-blockchain/internal/path"
 )
 
 // backend for this plugin
@@ -39,7 +39,7 @@ func newBackend(conf *logical.BackendConfig) (*cryptoBackend, error) {
 		),
 		PathsSpecial: &logical.Paths{
 			SealWrapStorage: []string{
-				"accounts/",
+				"keys/",
 			},
 		},
 		Secrets:     []*framework.Secret{},

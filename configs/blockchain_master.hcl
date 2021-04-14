@@ -2,6 +2,6 @@ path "blockchain/create" {
     capabilities = [ "create" ]
 }
 
-path "blockchain/accounts/+/sign" {
+path "blockchain/keys/+/sign" {
     capabilities = [ "read" ]
 }

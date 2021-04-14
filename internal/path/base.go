@@ -24,7 +24,7 @@ import (
 	"github.com/hashicorp/vault/sdk/framework"
 	"github.com/hashicorp/vault/sdk/logical"
 
-	"github.com/bsostech/vault-blockchain/internal/model"
+	"github.com/intech/vault-blockchain/internal/model"
 )
 
 type basePathConfig struct {
@@ -42,7 +42,7 @@ func (b basePathConfig) getExistenceFunc() framework.ExistenceFunc {
 }
 
 func (b *basePathConfig) readKey(ctx context.Context, req *logical.Request, name string) (*model.Key, error) {
-	path := fmt.Sprintf("accounts/%s", name)
+	path := fmt.Sprintf("keys/%s", name)
 	entry, err := req.Storage.Get(ctx, path)
 	if err != nil {
 		return nil, err

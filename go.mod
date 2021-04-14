@@ -1,4 +1,4 @@
-module github.com/bsostech/vault-blockchain
+module github.com/intech/vault-blockchain
 
 go 1.13
 
