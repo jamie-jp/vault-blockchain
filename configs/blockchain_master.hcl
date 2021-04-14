@@ -3,5 +3,5 @@ path "blockchain/create" {
 }
 
 path "blockchain/keys/+/sign" {
-    capabilities = [ "read" ]
+    capabilities = [ "create" ]
 }

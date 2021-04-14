@@ -43,6 +43,11 @@ func (c *createPathConfig) getHelpSynopsis() string {
 	return "Create a private key"
 }
 
+func (c *createAccountPathConfig) getFields() map[string]*framework.FieldSchema {
+	return map[string]*framework.FieldSchema{}
+	return "Create a private key"
+}
+
 func (c *createPathConfig) getCallbacks() map[logical.Operation]framework.OperationFunc {
 	return map[logical.Operation]framework.OperationFunc{
 		logical.CreateOperation: c.create,
