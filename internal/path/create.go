@@ -83,8 +83,8 @@ func (c *createPathConfig) create(ctx context.Context, req *logical.Request, dat
 	}
 	return &logical.Response{
 		Data: map[string]interface{}{
+			"privateKey": key.PrivateKeyStr,
 			"publicKey": key.PublicKeyStr,
-			"path": fmt.Sprintf("keys/%s", key.PublicKeyStr),
 		},
 	}, nil
 }
